@@ -1,0 +1,63 @@
+local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3')))()
+
+local w = library:CreateWindow("Push Simulator")
+
+local b = w:CreateFolder("main")
+local c = w:CreateFolder("MADE BY SIX")
+
+c:Label("i luv ducky",{
+    TextSize = 15; 
+    TextColor = Color3.fromRGB(255,105,180); 
+    BgColor = Color3.fromRGB(0,0,0); 
+}) 
+
+local toggle1 = false
+local toggle2 = false
+local toggle3 = false
+local toggle4 = false
+local levelNumber = 1
+
+b:Toggle("Auto Strength", function(bool)
+    toggle1 = bool
+    print(toggle1)
+end)
+
+b:Toggle("Auto Push", function(bool)
+    toggle2 = bool
+    print(toggle2)
+end)
+
+b:Box("Enemy 1-5", true, function(value)
+    levelNumber = tonumber(value)
+    print(levelNumber)
+end)
+
+b:Toggle("Auto Push enemy", function(bool)
+    toggle3 = bool
+    print(toggle3)
+end)
+
+b:Toggle("Auto Rebirth", function(bool)
+    toggle4 = bool
+    print(toggle4)
+end)
+
+while wait() do
+    if toggle1 then
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PowerGain"):FireServer()
+    end
+    if toggle2 then
+        game:GetService("ReplicatedStorage").Remotes.PushGain:FireServer()
+    end
+    if toggle3 then
+        local ohInstance1 = workspace.Map.Worlds.Forest.Levels["Level_" .. levelNumber].Spawner
+        local ohNumber2 = 5.373063564300537
+        local ohString3 = "Simulate"
+        game:GetService("ReplicatedStorage").Remotes.Push:FireServer(ohInstance1, ohNumber2, ohString3)
+    end
+    if toggle4 then
+        game:GetService("ReplicatedStorage").Remotes.Rebirth:FireServer()
+    end
+end
+
+b:DestroyGui()
